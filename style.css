@@ -9,6 +9,11 @@ html {
   user-select: none;
 }
 
+div#wrap {
+  width: 800px;
+  margin: 10px auto;
+}
+
 div#container {
   background-color: #8B95A1;
   background-position: center;
@@ -22,9 +27,10 @@ div#container {
   overflow: hidden;
 }
 
-div#wrap {
-  width: 800px;
-  margin: 10px auto;
+div#controls {
+  border-bottom: 2px white solid;
+  padding: 10px;
+  position: relative;
 }
 
 div#ad-bottom {
@@ -34,9 +40,10 @@ div#ad-bottom {
 }
 
 span#see-scores {
-  font-size: .8em;
-  bottom: 0px;
-  right: 0px;
+  color: #FFF;
+  bottom: 20px;
+  right: 20px;
+  font-size: 1em;
   position: absolute;
 }
 

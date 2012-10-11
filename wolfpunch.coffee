@@ -38,9 +38,9 @@ $.ready = () ->
         healthBar.width(7.6 * health)
         if health > 80
           healthBar.css('background-color', '#0C0')
-          if reverse then score -= .2
+          if reverse then score += .1
           if !reverse
-            sendMsg("PUNCH THE WOLF!!")
+            sendMsg('PUNCH THE WOLF!!')
             reverse = true
         if health < 80 && health > 40
           healthBar.css('background-color', '#CC0')
@@ -52,7 +52,9 @@ $.ready = () ->
           if reverse then score += .5
         if health < 10
           healthBar.css('background-color','#C00')
-          if reverse then score += 1
+          if reverse
+            score += 1
+            sendMsg('')
       else if(health + diff < 0)
         wolfsplosion()
 
@@ -84,7 +86,6 @@ $.ready = () ->
         $('img#title').hide()
         $('img#wolf').hide()
         $('.splosion').hide()
-        $('span#see-scores').show()
         $('.end').show()
         healthBar.hide()
         clearInterval(flashBar)

@@ -49,10 +49,10 @@
           if (health > 80) {
             healthBar.css('background-color', '#0C0');
             if (reverse) {
-              score -= .2;
+              score += .1;
             }
             if (!reverse) {
-              sendMsg("PUNCH THE WOLF!!");
+              sendMsg('PUNCH THE WOLF!!');
               reverse = true;
             }
           }
@@ -78,6 +78,7 @@
             healthBar.css('background-color', '#C00');
             if (reverse) {
               score += 1;
+              sendMsg('');
             }
           }
         } else if (health + diff < 0) {
@@ -116,7 +117,6 @@
           $('img#title').hide();
           $('img#wolf').hide();
           $('.splosion').hide();
-          $('span#see-scores').show();
           $('.end').show();
           healthBar.hide();
           clearInterval(flashBar);

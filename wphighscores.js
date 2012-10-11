@@ -29,12 +29,12 @@
     name = req.body.name.toUpperCase();
     if (name.length > 3) {
       return res.send({
-        msg: 'It fucked up. Stop fucking around.'
+        msg: 'u hax? plz no. I will ban ur IPs.'
       });
     } else {
       if (score === NaN) {
         return res.send({
-          msg: 'It really fucked up. What are you doing?!'
+          msg: 'u hax? plz no. I will ban ur IPs.'
         });
       } else {
         member = name + ':' + score;
