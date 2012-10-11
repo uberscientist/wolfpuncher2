@@ -1,0 +1,101 @@
+html {
+  background-color: #222;
+  font-family: 'Press Start 2P', sans-serif;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+div#container {
+  background-color: #8B95A1;
+  background-position: center;
+  background-repeat: no-repeat; 
+  width: 800px;
+  height: 600px;
+  border: 1px solid black;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  overflow: hidden;
+}
+
+span#see-scores {
+  font-size: .8em;
+  bottom: 0px;
+  right: 0px;
+  position: absolute;
+}
+
+button#submit {
+  font-family: 'Press Start 2P', sans-serif;
+  bottom: 80px;
+  right: 10px;
+  position: absolute;
+}
+
+input#name {
+  font-family: 'Press Start 2P', sans-serif;
+  text-transform: uppercase;
+  bottom: 80px;
+  right: 70px;
+  position: absolute;
+}
+
+.end {
+  display: none;
+}
+
+div#preload {
+  display: none;
+}
+
+div#health {
+  bottom: 20px;
+  right: 20px;
+  height: 20px;
+  position: absolute;
+}
+
+img#wolf {
+  bottom: 0px;
+  left: 0px;
+  position: absolute;
+}
+
+img.splosion {
+  bottom: 30px;
+  left: 20px;
+  position: absolute;
+}
+
+img#fist {
+  top: 30px;
+  right: 30px;
+  position: absolute;
+  z-index: 5;
+}
+
+img#title {
+  top: 10px;
+  left: 130px;
+  position: absolute;
+  z-index: 6;
+}
+
+span#message {
+  font-size: 1.7em;
+  width: 300px;
+  bottom: 150px;
+  right: 20px;
+  position: absolute;
+}
+
+span#score {
+  font-size: 1.3em;
+  bottom: 50px;
+  right: 30px;
+  position: absolute;
+}
