@@ -170,7 +170,7 @@ $.ready = () ->
   #Score UI stuff!
   $('span#see-scores').mouseover( ->
     $(this).css('cursor', 'pointer'))
-  $('input#name').click( ->
+  $('input#name').focus( ->
     $(this).val(''))
 
   #Send high score!!!

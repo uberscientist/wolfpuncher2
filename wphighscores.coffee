@@ -4,19 +4,13 @@ redis = require('redis')
 db = redis.createClient()
 app = express()
 app.use(express.bodyParser())
-
-checkScore = (score) ->
-  score = parseInt(score)
-  if score == NaN
-    return false
-  else
-    return score
+app.use( (req, res, next) ->
+  res.type('json')
+  #Allow AJAX magic on a different port
+  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*')
+  next())
 
 app.post('/score', (req, res) ->
-  #Allow AJAX magic on a different port
-  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
-  res.type('json')
-
   score = parseInt(req.body.score) + 1
   name = req.body.name.toUpperCase()
 
@@ -39,9 +33,6 @@ app.post('/score', (req, res) ->
             res.send(data)))))
 
 app.get('/scores', (req, res) ->
-  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
-  res.type('json')
-
   db.zrevrange('wpscores', 0, 9, (err, data) ->
     throw err if err
     res.send(data)))

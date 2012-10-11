@@ -231,7 +231,7 @@
     $('span#see-scores').mouseover(function() {
       return $(this).css('cursor', 'pointer');
     });
-    $('input#name').click(function() {
+    $('input#name').focus(function() {
       return $(this).val('');
     });
     $('button#submit').click(function() {
