@@ -22,36 +22,50 @@
   };
 
   app.post('/score', function(req, res) {
-    var name, score;
+    var member, name, score;
+    res.header('Access-Control-Allow-Origin', 'http://mindsforge.com file://*');
+    res.type('json');
+    score = parseInt(req.body.score) + 1;
     name = req.body.name.toUpperCase();
     if (name.length > 3) {
-      console.log('name len');
       return res.send({
         msg: 'It fucked up. Stop fucking around.'
       });
     } else {
-      score = parseInt(req.body.score);
       if (score === NaN) {
-        console.log('nan');
         return res.send({
-          msg: 'It really fucked up. What are you doing'
+          msg: 'It really fucked up. What are you doing?!'
         });
       } else {
-        db.zadd('wpscores', score, name + ':' + score);
-        res.type('json');
-        return res.send({
-          msg: 'Wow. Great Job.'
+        member = name + ':' + score;
+        return db.zadd('wpscores', score, member, function(err) {
+          if (err) {
+            throw err;
+          }
+          return db.zrevrank('wpscores', member, function(err, index) {
+            var end, start;
+            if (err) {
+              throw err;
+            }
+            start = index - 5 >= 0 ? index - 5 : 0;
+            end = index + 5;
+            console.log(start + ':' + end);
+            return db.zrevrange('wpscores', start, end, function(err, data) {
+              return res.send(data);
+            });
+          });
         });
       }
     }
   });
 
   app.get('/scores', function(req, res) {
+    res.header('Access-Control-Allow-Origin', 'http://mindsforge.com file://*');
+    res.type('json');
     return db.zrevrange('wpscores', 0, 9, function(err, data) {
       if (err) {
         throw err;
       }
-      res.type('json');
       return res.send(data);
     });
   });

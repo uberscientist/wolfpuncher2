@@ -17,7 +17,7 @@ $.ready = () ->
     $('span#message').html(msg)
 
   sendScore = (name, cb) ->
-    req = jQuery.ajax('http://mindsforge.com:6578/score',
+    req = jQuery.ajax('http://localhost:6578/score',
       type: 'POST'
       dataType: 'json'
       data: { name: name, score: score }
@@ -25,7 +25,7 @@ $.ready = () ->
         cb(data))
 
   getHighScores = (cb) ->
-    req = jQuery.ajax('http://mindsforge.com:6578/scores',
+    req = jQuery.ajax('http://localhost:6578/scores',
       type: 'GET'
       dataType: 'json'
       success: (data) ->
@@ -40,7 +40,7 @@ $.ready = () ->
           healthBar.css('background-color', '#0C0')
           if reverse then score -= .2
           if !reverse
-            sendMsg("PUNCH THE WOLF")
+            sendMsg("PUNCH THE WOLF!!")
             reverse = true
         if health < 80 && health > 40
           healthBar.css('background-color', '#CC0')
@@ -138,7 +138,6 @@ $.ready = () ->
 
       #Red background!
       $('div#container').css('background-color', '#F00')
-      fist = $('img#fist')
       $('img#wolf').css({width: '360px', height: '420px'})
       fist.css({width: '300px', height: '340px'})
       fist.css({ top: '80px', right: '200px'})
@@ -165,15 +164,13 @@ $.ready = () ->
 
   #See High Scores!
   $('span#see-scores').click( ->
-    getHighScores( (scores) ->
-      list = ''
-      for element, index in scores
-        entry = element.split(':')
-        list += entry[0] + '..........' + entry[1] + '\n'
-      alert(list)))
+    getHighScores((data) -> dispScores(data)))
 
+  #Score UI stuff!
   $('span#see-scores').mouseover( ->
     $(this).css('cursor', 'pointer'))
+  $('input#name').click( ->
+    $(this).val(''))
 
   #Send high score!!!
   $('button#submit').click( ->
@@ -182,4 +179,23 @@ $.ready = () ->
       $('input#name').hide()
       $('button#submit').hide()
       $('audio#getalife').trigger('play')
-      alert(data.msg)))
+      dispScores(data)))
+
+  #Display scores!!!
+  dispScores = (scores) ->
+    list = ''
+    for element, index in scores
+      entry = element.split(':')
+      list += entry[0] + '..........' + entry[1] + '\n'
+    alert(list)
+
+
+  #(un)Mute!
+  $('img#muter').click( ->
+    music = $('audio#music')
+    if music[0].paused
+      $(this).attr('src', 'imgs/mute-off.png')
+      music.trigger('play')
+    else
+      $(this).attr('src', 'imgs/mute-on.png')
+      music.trigger('pause'))

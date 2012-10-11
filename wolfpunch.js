@@ -2,7 +2,7 @@
 (function() {
 
   $.ready = function() {
-    var animateFist, fist, fistStep, getHighScores, health, healthBar, healthInterval, punch, punching, reverse, score, sendMsg, sendScore, slowInterval, splodeid, updateHealth, wSplosion, wolfsplosion;
+    var animateFist, dispScores, fist, fistStep, getHighScores, health, healthBar, healthInterval, punch, punching, reverse, score, sendMsg, sendScore, slowInterval, splodeid, updateHealth, wSplosion, wolfsplosion;
     $('img').bind('dragstart', function(event) {
       return event.preventDefault();
     });
@@ -19,7 +19,7 @@
     };
     sendScore = function(name, cb) {
       var req;
-      return req = jQuery.ajax('http://mindsforge.com:6578/score', {
+      return req = jQuery.ajax('http://localhost:6578/score', {
         type: 'POST',
         dataType: 'json',
         data: {
@@ -33,7 +33,7 @@
     };
     getHighScores = function(cb) {
       var req;
-      return req = jQuery.ajax('http://mindsforge.com:6578/scores', {
+      return req = jQuery.ajax('http://localhost:6578/scores', {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
@@ -52,7 +52,7 @@
               score -= .2;
             }
             if (!reverse) {
-              sendMsg("PUNCH THE WOLF");
+              sendMsg("PUNCH THE WOLF!!");
               reverse = true;
             }
           }
@@ -183,7 +183,6 @@
           $('audio#whine2').trigger('play');
         }
         $('div#container').css('background-color', '#F00');
-        fist = $('img#fist');
         $('img#wolf').css({
           width: '360px',
           height: '420px'
@@ -225,29 +224,46 @@
       }
     });
     $('span#see-scores').click(function() {
-      return getHighScores(function(scores) {
-        var element, entry, index, list, _i, _len;
-        list = '';
-        for (index = _i = 0, _len = scores.length; _i < _len; index = ++_i) {
-          element = scores[index];
-          entry = element.split(':');
-          list += entry[0] + '..........' + entry[1] + '\n';
-        }
-        return alert(list);
+      return getHighScores(function(data) {
+        return dispScores(data);
       });
     });
     $('span#see-scores').mouseover(function() {
       return $(this).css('cursor', 'pointer');
     });
-    return $('button#submit').click(function() {
+    $('input#name').click(function() {
+      return $(this).val('');
+    });
+    $('button#submit').click(function() {
       var name;
       name = $('input#name').val();
       return sendScore(name, function(data) {
         $('input#name').hide();
         $('button#submit').hide();
         $('audio#getalife').trigger('play');
-        return alert(data.msg);
+        return dispScores(data);
       });
+    });
+    dispScores = function(scores) {
+      var element, entry, index, list, _i, _len;
+      list = '';
+      for (index = _i = 0, _len = scores.length; _i < _len; index = ++_i) {
+        element = scores[index];
+        entry = element.split(':');
+        list += entry[0] + '..........' + entry[1] + '\n';
+      }
+      return alert(list);
+    };
+    return $('img#muter').click(function() {
+      var music;
+      music = $('audio#music');
+      if (music[0].paused) {
+        $(this).attr('src', 'imgs/mute-off.png');
+        return music.trigger('play');
+      } else {
+        $(this).attr('src', 'imgs/mute-on.png');
+        return music.trigger('pause');
+      }
     });
   };
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head><title>WOLF PUNCHER 2 (TM)</title>
+<link href='style.css' rel='stylesheet' type='text/css' />
+<link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
+<script>
+  if (typeof jQuery == 'undefined') {
+    document.write(unescape("%3Cscript src='jquery-1.8.2.min.js'%3E%3C/script%3E"));
+  }
+</script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src='wolfpunch.js'></script>
+<script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-35448538-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+</script>
+</head>
+<body>
+  <noscript>This is a javascript game.</noscript>
+  <div id='container'>
+    <span id='see-scores' class='end'>HIGH SCORES</span>
+    <input type='text' id='name' class='end' maxlength=3 value='???'></input>
+    <button type='button' id='submit' class='end'>SUBMIT</button>
+    <img id='title' src='imgs/title.png'/>
+    <img id='wolf' src='imgs/wolf.png'/>
+    <img id='fist' src='imgs/fist.png'/>
+    <span id='message'></span>
+    <span id='score'></span>
+    <div id='health'></div>
+  </div>
+  <div id='controls'>
+    <img id='muter' src='imgs/mute-off.png'/>
+  </div>
+  <div id='preload'>
+    <img src='imgs/red_wolf.png'/>
+    <img src='imgs/gameover.jpg'/>
+    <img src='imgs/toobad.jpg'/>
+    <img src='imgs/splosion.gif'/>
+    <audio id='music' autoplay='autoplay'loop='loop' preload='preload'>
+      <source src='audio/music.ogg' type='audio/ogg'>
+      <source src='audio/music.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='hit' preload='preload'>
+      <source src='audio/hit.ogg' type='audio/ogg'>
+      <source src='audio/hit.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='ultimate' autoplay='autoplay' preload='preload'>
+      <source src='audio/wolfpunch_ultimate.ogg' type='audio/ogg'>
+      <source src='audio/wolfpunch_ultimate.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='wolfsplosion' preload='preload'>
+      <source src='audio/wolfsplosion.ogg' type='audio/ogg'>
+      <source src='audio/wolfsplosion.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='whine1' preload='preload'>
+      <source src='audio/whine1.ogg' type='audio/ogg'>
+      <source src='audio/whine1.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='whine2' preload='preload'>
+      <source src='audio/whine2.ogg' type='audio/ogg'>
+      <source src='audio/whine2.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='toobad' preload='preload'>
+      <source src='audio/toobad.ogg' type='audio/ogg'>
+      <source src='audio/toobad.mp3' type='audio/mp3'>
+    </audio>
+    <audio id='getalife' preload='preload'>
+      <source src='audio/getalife.ogg' type='audio/ogg'>
+      <source src='audio/getalife.mp3' type='audio/mp3'>
+    </audio>
+  </div>
+</body>
+</html>
