@@ -17,7 +17,7 @@ $.ready = () ->
     $('span#message').html(msg)
 
   sendScore = (name, cb) ->
-    req = jQuery.ajax('http://mindsforge.com:6578/score',
+    req = jQuery.ajax('http://wolfpuncher.com:6578/score',
       type: 'POST'
       dataType: 'json'
       data: { name: name, score: score }
@@ -25,7 +25,7 @@ $.ready = () ->
         cb(data))
 
   getHighScores = (cb) ->
-    req = jQuery.ajax('http://mindsforge.com:6578/scores',
+    req = jQuery.ajax('http://wolfpuncher.com:6578/scores',
       type: 'GET'
       dataType: 'json'
       success: (data) ->

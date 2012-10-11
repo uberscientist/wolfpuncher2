@@ -14,7 +14,7 @@ checkScore = (score) ->
 
 app.post('/score', (req, res) ->
   #Allow AJAX magic on a different port
-  res.header('Access-Control-Allow-Origin', 'http://mindsforge.com file://*')
+  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
   res.type('json')
 
   score = parseInt(req.body.score) + 1
@@ -39,7 +39,7 @@ app.post('/score', (req, res) ->
             res.send(data)))))
 
 app.get('/scores', (req, res) ->
-  res.header('Access-Control-Allow-Origin', 'http://mindsforge.com file://*')
+  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
   res.type('json')
 
   db.zrevrange('wpscores', 0, 9, (err, data) ->

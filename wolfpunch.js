@@ -19,7 +19,7 @@
     };
     sendScore = function(name, cb) {
       var req;
-      return req = jQuery.ajax('http://mindsforge.com:6578/score', {
+      return req = jQuery.ajax('http://wolfpuncher.com:6578/score', {
         type: 'POST',
         dataType: 'json',
         data: {
@@ -33,7 +33,7 @@
     };
     getHighScores = function(cb) {
       var req;
-      return req = jQuery.ajax('http://mindsforge.com:6578/scores', {
+      return req = jQuery.ajax('http://wolfpuncher.com:6578/scores', {
         type: 'GET',
         dataType: 'json',
         success: function(data) {
