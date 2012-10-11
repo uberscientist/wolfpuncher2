@@ -23,24 +23,41 @@
 </head>
 <body>
   <noscript>This is a javascript game.</noscript>
-  <div id='container'>
-    <span id='see-scores' class='end'>HIGH SCORES</span>
-    <input type='text' id='name' class='end' maxlength=3 value='???'></input>
-    <button type='button' id='submit' class='end'>SUBMIT</button>
-    <img id='title' src='imgs/title.png'/>
-    <img id='wolf' src='imgs/wolf.png'/>
-    <img id='fist' src='imgs/fist.png'/>
-    <span id='message'></span>
-    <span id='score'></span>
-    <div id='health'></div>
+  <div id='wrap'>
+    <div id='container'>
+      <span id='see-scores' class='end'>HIGH SCORES</span>
+      <input type='text' id='name' class='end' maxlength=3 value='???'></input>
+      <button type='button' id='submit' class='end'>SUBMIT</button>
+      <img id='title' src='imgs/title.png'/>
+      <img id='wolf' src='imgs/wolf.png'/>
+      <img id='fist' src='imgs/fist.png'/>
+      <span id='message'></span>
+      <span id='score'></span>
+      <div id='health'></div>
+    </div>
+    <div id='controls'>
+      <img id='muter' src='imgs/mute-off.png'/>
+    </div>
+    <div id='ad-bottom'>
+      <script type="text/javascript"><!--
+      google_ad_client = "ca-pub-7938885251036126";
+      /* wolfpuncher-bottom */
+      google_ad_slot = "7407210286";
+      google_ad_width = 728;
+      google_ad_height = 90;
+      //-->
+      </script>
+      <script type="text/javascript"
+      src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+      </script>
+    </div>
   </div>
-  <div id='controls'>
-    <img id='muter' src='imgs/mute-off.png'/>
-  </div>
+
   <div id='preload'>
     <img src='imgs/red_wolf.png'/>
     <img src='imgs/gameover.jpg'/>
     <img src='imgs/toobad.jpg'/>
+    <img src='imgs/mute-on.png'/>
     <img src='imgs/splosion.gif'/>
     <audio id='music' autoplay='autoplay'loop='loop' preload='preload'>
       <source src='audio/music.ogg' type='audio/ogg'>
