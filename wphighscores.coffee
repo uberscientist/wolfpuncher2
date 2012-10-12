@@ -7,12 +7,10 @@ app.use(express.bodyParser())
 app.use( (req, res, next) ->
   do ->
     res.type('json')
-    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*')
+    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
     next())
 
 app.post('/score', (req, res) ->
-  res.type('json')
-  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*')
   score = parseInt(req.body.score)
   name = req.body.name.toUpperCase()
 
@@ -35,8 +33,6 @@ app.post('/score', (req, res) ->
             res.send(data)))))
 
 app.get('/scores', (req, res) ->
-  res.type('json')
-  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*')
   db.zrevrange('wpscores', 0, 9, (err, data) ->
     throw err if err
     res.send(data)))
