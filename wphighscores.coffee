@@ -5,10 +5,10 @@ db = redis.createClient()
 app = express()
 app.use(express.bodyParser())
 app.use( (req, res, next) ->
-  res.type('json')
-  #Allow AJAX magic on a different port
-  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*')
-  next())
+  do ->
+    res.type('json')
+    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*')
+    next())
 
 app.post('/score', (req, res) ->
   score = parseInt(req.body.score)
