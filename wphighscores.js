@@ -22,6 +22,8 @@
 
   app.post('/score', function(req, res) {
     var member, name, score;
+    res.type('json');
+    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*');
     score = parseInt(req.body.score);
     name = req.body.name.toUpperCase();
     if (name.length > 3) {
@@ -57,6 +59,8 @@
   });
 
   app.get('/scores', function(req, res) {
+    res.type('json');
+    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*');
     return db.zrevrange('wpscores', 0, 9, function(err, data) {
       if (err) {
         throw err;
