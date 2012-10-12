@@ -5,10 +5,9 @@ db = redis.createClient()
 app = express()
 app.use(express.bodyParser())
 app.use( (req, res, next) ->
-  do ->
-    res.type('json')
-    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
-    next())
+  res.type('json')
+  res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
+  next())
 
 app.post('/score', (req, res) ->
   score = parseInt(req.body.score)

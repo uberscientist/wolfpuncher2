@@ -13,11 +13,9 @@
   app.use(express.bodyParser());
 
   app.use(function(req, res, next) {
-    return (function() {
-      res.type('json');
-      res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com');
-      return next();
-    })();
+    res.type('json');
+    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com');
+    return next();
   });
 
   app.post('/score', function(req, res) {
