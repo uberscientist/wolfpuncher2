@@ -11,7 +11,7 @@ app.use( (req, res, next) ->
   next())
 
 app.post('/score', (req, res) ->
-  score = parseInt(req.body.score) + 1
+  score = parseInt(req.body.score)
   name = req.body.name.toUpperCase()
 
   if name.length > 3

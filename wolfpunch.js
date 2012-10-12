@@ -24,7 +24,7 @@
         dataType: 'json',
         data: {
           name: name,
-          score: score
+          score: Math.round(score)
         },
         success: function(data) {
           return cb(data);

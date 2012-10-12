@@ -12,11 +12,15 @@
 
   app.use(express.bodyParser());
 
+  app.use(function(req, res, next) {
+    res.type('json');
+    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*');
+    return next();
+  });
+
   app.post('/score', function(req, res) {
     var member, name, score;
-    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*');
-    res.type('json');
-    score = parseInt(req.body.score) + 1;
+    score = parseInt(req.body.score);
     name = req.body.name.toUpperCase();
     if (name.length > 3) {
       return res.send({
@@ -51,8 +55,6 @@
   });
 
   app.get('/scores', function(req, res) {
-    res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com file://*');
-    res.type('json');
     return db.zrevrange('wpscores', 0, 9, function(err, data) {
       if (err) {
         throw err;

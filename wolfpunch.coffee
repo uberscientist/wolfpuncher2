@@ -20,7 +20,7 @@ $.ready = () ->
     req = jQuery.ajax('http://wolfpuncher.com:6578/score',
       type: 'POST'
       dataType: 'json'
-      data: { name: name, score: score }
+      data: { name: name, score: Math.round(score) }
       success: (data) ->
         cb(data))
 
