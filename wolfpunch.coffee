@@ -131,6 +131,13 @@ $.ready = () ->
   punch = () ->
     if !wSplosion
       punching = true
+      #Update server to prevent cheaters
+      ###
+      $.ajax(
+        type: 'POST'
+        url: 'http://wolfpuncher.com:6578/punch'
+        data: { score: Math.round(score) })
+      ###
       #Play whines randomly!
       if Math.random() * 20 < 2
         $('audio#whine1').trigger('play')

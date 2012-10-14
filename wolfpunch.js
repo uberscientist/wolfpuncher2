@@ -176,6 +176,13 @@
     punch = function() {
       if (!wSplosion) {
         punching = true;
+        /*
+              $.ajax(
+                type: 'POST'
+                url: 'http://wolfpuncher.com:6578/punch'
+                data: { score: Math.round(score) })
+        */
+
         if (Math.random() * 20 < 2) {
           $('audio#whine1').trigger('play');
         }
