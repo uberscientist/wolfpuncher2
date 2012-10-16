@@ -23,10 +23,10 @@ app.post('/score', (req, res) ->
   db.sismember('wpbanned', ip, (err, banned) ->
     throw err if err
     if banned
-      res.send({ msg: 'sorry 4 ban this ip :(' })
+      res.send('banned')
     else
-      if name.length > 3 or score == NaN or score == Infinity
-        res.send({ msg: 'u hax? plz no. I ban ur IPs.'})
+      if name.length > 3 or name == 'GAB' or score == NaN or score == Infinity
+        res.send('banned')
         db.sadd('wpbanned', ip, (err) -> throw err if err)
       else
         member = name + ':' + score

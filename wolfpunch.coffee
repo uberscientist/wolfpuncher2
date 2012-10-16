@@ -192,10 +192,13 @@ $.ready = () ->
   #Display scores!!!
   dispScores = (scores) ->
     list = ''
-    for element, index in scores
-      entry = element.split(':')
-      list += entry[0] + '..........' + entry[1] + '\n'
-    alert(list)
+    if scores == 'banned'
+      alert('U an outlaw. Stay outta town')
+    else
+      for element in scores
+        entry = element.split(':')
+        list += entry[0] + '..........' + entry[1] + '\n'
+      alert(list)
 
 
   #(un)Mute!

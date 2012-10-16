@@ -36,14 +36,10 @@
         throw err;
       }
       if (banned) {
-        return res.send({
-          msg: 'sorry 4 ban this ip :('
-        });
+        return res.send('banned');
       } else {
-        if (name.length > 3 || score === NaN || score === Infinity) {
-          res.send({
-            msg: 'u hax? plz no. I ban ur IPs.'
-          });
+        if (name.length > 3 || name === 'GAB' || score === NaN || score === Infinity) {
+          res.send('banned');
           return db.sadd('wpbanned', ip, function(err) {
             if (err) {
               throw err;
