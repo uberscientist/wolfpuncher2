@@ -96,9 +96,7 @@ $.ready = () ->
           backgroundImage: 'url(\'imgs/wolfgrave.jpg\')')
 
         setTimeout ->
-          $('div#container').css(
-            backgroundColor: '#000'
-            backgroundImage: 'url(\'imgs/toobad.jpg\')')
+
         ,1800
       )
 
