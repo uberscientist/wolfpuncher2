@@ -18,40 +18,54 @@
     return next();
   });
 
+  app.post('/punch', function(req, res) {
+    var ip, score;
+    ip = req.socket.remoteAddress;
+    score = parseInt(req.body.score);
+    return db.setex('wp:' + ip, 300, score);
+  });
+
   app.post('/score', function(req, res) {
-    var member, name, score;
+    var ip, name, score;
     score = parseInt(req.body.score);
     name = req.body.name.toUpperCase();
-    if (name.length > 3) {
-      return res.send({
-        msg: 'u hax? plz no. I will ban ur IPs.'
-      });
-    } else {
-      if (score === NaN) {
-        return res.send({
-          msg: 'u hax? plz no. I will ban ur IPs.'
-        });
+    ip = req.socket.remoteAddress;
+    return db.sismember('wpbanned', ip, function(err, banned) {
+      var member;
+      if (err) {
+        throw err;
+      }
+      if (banned) {
+        return res.send('banned');
       } else {
-        member = name + ':' + score;
-        return db.zadd('wpscores', score, member, function(err) {
-          if (err) {
-            throw err;
-          }
-          return db.zrevrank('wpscores', member, function(err, index) {
-            var end, start;
+        if (name.length > 3 || name === 'GAB' || score === NaN || score === Infinity) {
+          res.send('banned');
+          return db.sadd('wpbanned', ip, function(err) {
             if (err) {
               throw err;
             }
-            start = index - 5 >= 0 ? index - 5 : 0;
-            end = index + 5;
-            console.log(start + ':' + end);
-            return db.zrevrange('wpscores', start, end, function(err, data) {
-              return res.send(data);
+          });
+        } else {
+          member = name + ':' + score;
+          return db.zadd('wpscores', score, member, function(err) {
+            if (err) {
+              throw err;
+            }
+            return db.zrevrank('wpscores', member, function(err, index) {
+              var end, start;
+              if (err) {
+                throw err;
+              }
+              start = index - 5 >= 0 ? index - 5 : 0;
+              end = index + 5;
+              return db.zrevrange('wpscores', start, end, function(err, data) {
+                return res.send(data);
+              });
             });
           });
-        });
+        }
       }
-    }
+    });
   });
 
   app.get('/scores', function(req, res) {

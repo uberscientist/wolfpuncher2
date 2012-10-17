@@ -128,6 +128,13 @@ $.ready = () ->
   punch = () ->
     if !wSplosion
       punching = true
+      #Update server to prevent cheaters
+      ###
+      $.ajax(
+        type: 'POST'
+        url: 'http://wolfpuncher.com:6578/punch'
+        data: { score: Math.round(score) })
+      ###
       #Play whines randomly!
       if Math.random() * 20 < 2
         $('audio#whine1').trigger('play')
@@ -185,10 +192,13 @@ $.ready = () ->
   #Display scores!!!
   dispScores = (scores) ->
     list = ''
-    for element, index in scores
-      entry = element.split(':')
-      list += entry[0] + '..........' + entry[1] + '\n'
-    alert(list)
+    if scores == 'banned'
+      alert('U an outlaw. Stay outta town')
+    else
+      for element in scores
+        entry = element.split(':')
+        list += entry[0] + '..........' + entry[1] + '\n'
+      alert(list)
 
 
   #(un)Mute!

@@ -175,6 +175,13 @@
     punch = function() {
       if (!wSplosion) {
         punching = true;
+        /*
+              $.ajax(
+                type: 'POST'
+                url: 'http://wolfpuncher.com:6578/punch'
+                data: { score: Math.round(score) })
+        */
+
         if (Math.random() * 20 < 2) {
           $('audio#whine1').trigger('play');
         }
@@ -247,14 +254,18 @@
       });
     });
     dispScores = function(scores) {
-      var element, entry, index, list, _i, _len;
+      var element, entry, list, _i, _len;
       list = '';
-      for (index = _i = 0, _len = scores.length; _i < _len; index = ++_i) {
-        element = scores[index];
-        entry = element.split(':');
-        list += entry[0] + '..........' + entry[1] + '\n';
+      if (scores === 'banned') {
+        return alert('U an outlaw. Stay outta town');
+      } else {
+        for (_i = 0, _len = scores.length; _i < _len; _i++) {
+          element = scores[_i];
+          entry = element.split(':');
+          list += entry[0] + '..........' + entry[1] + '\n';
+        }
+        return alert(list);
       }
-      return alert(list);
     };
     return $('img#muter').click(function() {
       var music;
