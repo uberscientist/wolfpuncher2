@@ -93,7 +93,7 @@ $.ready = () ->
         sendMsg("")
         $('div#container').css(
           backgroundColor: '#000'
-          backgroundImage: 'url(\'imgs/gameover.jpg\')')
+          backgroundImage: 'url(\'imgs/wolfgrave.jpg\')')
 
         setTimeout ->
           $('div#container').css(
@@ -106,7 +106,6 @@ $.ready = () ->
 
   healthInterval = setInterval ->
     updateHealth(1)
-    $('div#container').css('background-color', '#8B95A1')
   , 50
 
   slowInterval = setInterval ->
@@ -138,13 +137,16 @@ $.ready = () ->
         $('audio#whine2').trigger('play')
 
       #Red background!
-      $('div#container').css('background-color', '#F00')
+      $('div#container').css('background-image', 'none')
       $('img#wolf').css({width: '360px', height: '420px'})
       fist.css({width: '300px', height: '340px'})
       fist.css({ top: '80px', right: '200px'})
 
       setTimeout ->
-        #Change it back to snow!!
+        $('div#container').css('background-image', "url('imgs/forest.jpg')")
+      , 50
+
+      setTimeout ->
         $('img#wolf').css({width: '', height: ''})
         fist.css({width: '', height: ''})
         fist.css({ top: '30px', right: '30px'})

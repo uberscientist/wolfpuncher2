@@ -15,7 +15,8 @@ div#wrap {
 }
 
 div#container {
-  background-color: #8B95A1;
+  background-color: #F00;
+  background-image: url('imgs/forest.jpg');
   background-position: center;
   background-repeat: no-repeat; 
   width: 800px;

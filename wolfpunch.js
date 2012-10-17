@@ -124,7 +124,7 @@
           sendMsg("");
           $('div#container').css({
             backgroundColor: '#000',
-            backgroundImage: 'url(\'imgs/gameover.jpg\')'
+            backgroundImage: 'url(\'imgs/wolfgrave.jpg\')'
           });
           return setTimeout(function() {
             return $('div#container').css({
@@ -136,8 +136,7 @@
       }
     };
     healthInterval = setInterval(function() {
-      updateHealth(1);
-      return $('div#container').css('background-color', '#8B95A1');
+      return updateHealth(1);
     }, 50);
     slowInterval = setInterval(function() {
       return animateFist();
@@ -182,7 +181,7 @@
         if (Math.random() * 20 > 18) {
           $('audio#whine2').trigger('play');
         }
-        $('div#container').css('background-color', '#F00');
+        $('div#container').css('background-image', 'none');
         $('img#wolf').css({
           width: '360px',
           height: '420px'
@@ -195,6 +194,9 @@
           top: '80px',
           right: '200px'
         });
+        setTimeout(function() {
+          return $('div#container').css('background-image', "url('imgs/forest.jpg')");
+        }, 50);
         setTimeout(function() {
           $('img#wolf').css({
             width: '',
