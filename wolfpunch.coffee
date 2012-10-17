@@ -1,212 +1,228 @@
-$.ready = () ->
-
+$.ready = ->
   #No dragging images.
   $('img').bind('dragstart', (event) -> event.preventDefault())
 
-  health = 0
-  score = 0
-  splodeid = 0
-  fistStep = -1
-  wSplosion = false
-  reverse = false
-  punching = false
+  $('div#preload').waitForImages( () ->
+    $('div#loading').hide()
+    $('div#container').slideDown('slow', ->
+      startGame())
+  , (loaded, count, success) ->
+    $('div#loading').css('width', 580 * (loaded / count)))
 
-  healthBar = $('div#health')
+  startGame = () ->
+    health = 0
+    score = 0
+    splodeid = 0
+    fistStep = -1
+    wSplosion = false
+    reverse = false
+    punching = false
 
-  sendMsg = (msg) ->
-    $('span#message').html(msg)
+    healthBar = $('div#health')
 
-  sendScore = (name, cb) ->
-    req = jQuery.ajax('http://wolfpuncher.com:6578/score',
-      type: 'POST'
-      dataType: 'json'
-      data: { name: name, score: Math.round(score) }
-      success: (data) ->
-        cb(data))
+    sendMsg = (msg) ->
+      $('span#message').html(msg)
 
-  getHighScores = (cb) ->
-    req = jQuery.ajax('http://wolfpuncher.com:6578/scores',
-      type: 'GET'
-      dataType: 'json'
-      success: (data) ->
-        cb(data))
+    sendScore = (name, cb) ->
+      req = jQuery.ajax('http://wolfpuncher.com:6578/score',
+        type: 'POST'
+        dataType: 'json'
+        data: { name: name, score: Math.round(score) }
+        success: (data) ->
+          cb(data))
 
-  updateHealth = (diff) ->
-    if !wSplosion
-      if(health + diff >= 0 && health + diff <= 100)
-        health += diff
-        healthBar.width(7.6 * health)
-        if health > 80
-          healthBar.css('background-color', '#0C0')
-          if reverse then score += .1
-          if !reverse
-            sendMsg('PUNCH THE WOLF!!')
-            reverse = true
-        if health < 80 && health > 40
-          healthBar.css('background-color', '#CC0')
-          if !reverse then sendMsg("GET READY...")
-          if reverse then score += .2
-        if health < 40 && health > 10
-          healthBar.css('background-color', '#D50')
-          if !reverse then sendMsg("WAIT...")
-          if reverse then score += .5
-        if health < 10
-          healthBar.css('background-color','#C00')
-          if reverse
-            score += 1
-            sendMsg('')
-      else if(health + diff < 0)
-        wolfsplosion()
+    getHighScores = (cb) ->
+      req = jQuery.ajax('http://wolfpuncher.com:6578/scores',
+        type: 'GET'
+        dataType: 'json'
+        success: (data) ->
+          cb(data))
 
-    $('span#score').html("SCORE: #{Math.round(score)}")
+    updateHealth = (diff) ->
+      if !wSplosion
+        if(health + diff >= 0 && health + diff <= 100)
+          health += diff
+          healthBar.width(7.6 * health)
+          if health > 80
+            healthBar.css('background-color', '#0C0')
+            if reverse then score += .1
+            if !reverse
+              sendMsg('PUNCH THE WOLF!!')
+              reverse = true
+          if health < 80 && health > 40
+            healthBar.css('background-color', '#CC0')
+            if !reverse then sendMsg("GET READY...")
+            if reverse
+              score += 2
+              sendMsg('')
+          if health < 40 && health > 10
+            healthBar.css('background-color', '#D50')
+            if !reverse then sendMsg("WAIT...")
+            if reverse then score += .5
+          if health < 10
+            healthBar.css('background-color','#C00')
+            if reverse
+              score += 1
+              sendMsg('')
+        else if(health + diff < 0)
+          wolfsplosion()
 
-  wolfsplosion = () ->
-    if !wSplosion
-      wSplosion = true
-      sendMsg("WOLF SPLOSION!!")
-      $('img#wolf').attr('src', 'imgs/red_wolf.png')
-      $('audio#wolfsplosion').trigger('play')
+      $('span#score').html("SCORE: #{Math.round(score)}")
 
-      flashBar = setInterval ->
-        if healthBar.css('background-color') != 'rgb(255, 0, 0)'
-          healthBar.css('background-color', '#F00')
-        else
-          healthBar.css('background-color', '#FFF')
-      , 30
+    wolfsplosion = () ->
+      if !wSplosion
+        wSplosion = true
+        sendMsg("WOLF SPLOSION!!")
+        $('img#wolf').attr('src', 'imgs/red_wolf.png')
+        $('audio#wolfsplosion').trigger('play')
 
-      splosionsInterval = setInterval ->
-        $('div#container').append("<img src='imgs/splosion.gif' id='splode-#{splodeid}' class='splosion' />")
-        $('#splode-'+splodeid).css({'bottom': splodeid * 40 * Math.random() * 5, left: splodeid * 40 * Math.random() * 5})
-        splodeid++
-      , 500
+        flashBar = setInterval ->
+          if healthBar.css('background-color') != 'rgb(255, 0, 0)'
+            healthBar.css('background-color', '#F00')
+          else
+            healthBar.css('background-color', '#FFF')
+        , 30
 
-      $('img#wolf').animate({bottom: '-600px'}, 6000, ->
-        $('audio#toobad').trigger('play')
-        $('img#fist').hide()
-        $('img#title').hide()
-        $('img#wolf').hide()
-        $('.splosion').hide()
-        $('.end').show()
-        healthBar.hide()
-        clearInterval(flashBar)
-        clearInterval(splosionsInterval)
-        sendMsg("")
-        $('div#container').css(
-          backgroundColor: '#000'
-          backgroundImage: 'url(\'imgs/wolfgrave.jpg\')')
+        splosionsInterval = setInterval ->
+          $('div#container').append("<img src='imgs/splosion.gif' id='splode-#{splodeid}' class='splosion' />")
+          $('#splode-'+splodeid).css({'bottom': splodeid * 40 * Math.random() * 5, left: splodeid * 40 * Math.random() * 5})
+          splodeid++
+        , 500
+
+        $('img#wolf').animate({bottom: '-600px'}, 6000, ->
+          $('audio#toobad').trigger('play')
+          $('img#fist').remove()
+          $('img#title').remove()
+          $('img#wolf').remove()
+          $('.splosion').remove()
+          healthBar.remove()
+          clearInterval(flashBar)
+          clearInterval(splosionsInterval)
+          $('.end').show()
+          sendMsg('')
+
+          $('div#container').css(
+            backgroundColor: '#000'
+            backgroundImage: 'url(\'imgs/wolfgrave.jpg\')')
+
+          $('span#game-over').animate({top: '0px'}, 1000)
+          $('img#sweetiebot').animate({right: '0px', bottom: '0px'}, 600)
+
+          i = 0
+          paText = ''
+          playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ')
+
+          paInterval = setInterval ->
+            if i == playAgain.length - 1 then clearInterval(paInterval)
+            paText += playAgain[i] + ' '
+            $('div#play-again').html(paText)
+            i++
+          , 190
+          
+
+          setTimeout ->
+            if paInterval then clearInterval(paInterval)
+            $('span#too-bad').show()
+          ,1800
+        )
+
+
+
+    healthInterval = setInterval ->
+      updateHealth(1)
+    , 50
+
+    slowInterval = setInterval ->
+      animateFist()
+    , 250
+
+    fist = $('img#fist')
+    animateFist = () ->
+      if !punching
+        fistStep++
+        if fistStep == 0
+          fist.css({ top: '20px', right: '40px'})
+        if fistStep == 1
+          fist.css({ top: '30px', right: '30px'})
+        if fistStep == 2
+          fist.css({ top: '20px', right: '20px'})
+        if fistStep == 3
+          fist.css({ top: '30px', right: '30px'})
+          fistStep = -1
+
+
+    punch = () ->
+      if !wSplosion
+        punching = true
+        #Play whines randomly!
+        if Math.random() * 20 < 2
+          $('audio#whine1').trigger('play')
+        if Math.random() * 20 > 18
+          $('audio#whine2').trigger('play')
+
+        #Red background!
+        $('div#container').css('background-image', 'none')
+        $('img#wolf').css({width: '360px', height: '420px'})
+        fist.css({width: '300px', height: '340px'})
+        fist.css({ top: '80px', right: '200px'})
 
         setTimeout ->
+          $('div#container').css('background-image', "url('imgs/forest.jpg')")
+        , 50
 
-        ,1800
-      )
+        setTimeout ->
+          $('img#wolf').css({width: '', height: ''})
+          fist.css({width: '', height: ''})
+          fist.css({ top: '30px', right: '30px'})
+          punching = false
+        , 150
 
+        health -= 5
+        $('audio#hit').trigger('play')
 
+    #Events!
 
-  healthInterval = setInterval ->
-    updateHealth(1)
-  , 50
+    #Punch!
+    $('img#wolf').on('mousedown', -> punch())
+    $(window).keydown( (e) ->
+      if e.which == 32
+        e.preventDefault()
+        punch())
 
-  slowInterval = setInterval ->
-    animateFist()
-  , 250
+    #See High Scores!
+    $('span#see-scores').click( ->
+      getHighScores((data) -> dispScores(data)))
 
-  fist = $('img#fist')
-  animateFist = () ->
-    if !punching
-      fistStep++
-      if fistStep == 0
-        fist.css({ top: '20px', right: '40px'})
-      if fistStep == 1
-        fist.css({ top: '30px', right: '30px'})
-      if fistStep == 2
-        fist.css({ top: '20px', right: '20px'})
-      if fistStep == 3
-        fist.css({ top: '30px', right: '30px'})
-        fistStep = -1
+    #Score UI stuff!
+    $('span#see-scores').mouseover( ->
+      $(this).css('cursor', 'pointer'))
+    $('input#name').focus( ->
+      $(this).val(''))
 
+    #Send high score!!!
+    $('button#submit').click( ->
+      name = $('input#name').val()
+      sendScore(name, (data) ->
+        $('input#name').hide()
+        $('button#submit').hide()
+        $('audio#getalife').trigger('play')
+        dispScores(data)))
 
-  punch = () ->
-    if !wSplosion
-      punching = true
-      #Update server to prevent cheaters
-      ###
-      $.ajax(
-        type: 'POST'
-        url: 'http://wolfpuncher.com:6578/punch'
-        data: { score: Math.round(score) })
-      ###
-      #Play whines randomly!
-      if Math.random() * 20 < 2
-        $('audio#whine1').trigger('play')
-      if Math.random() * 20 > 18
-        $('audio#whine2').trigger('play')
-
-      #Red background!
-      $('div#container').css('background-image', 'none')
-      $('img#wolf').css({width: '360px', height: '420px'})
-      fist.css({width: '300px', height: '340px'})
-      fist.css({ top: '80px', right: '200px'})
-
-      setTimeout ->
-        $('div#container').css('background-image', "url('imgs/forest.jpg')")
-      , 50
-
-      setTimeout ->
-        $('img#wolf').css({width: '', height: ''})
-        fist.css({width: '', height: ''})
-        fist.css({ top: '30px', right: '30px'})
-        punching = false
-      , 150
-
-      health -= 5
-      $('audio#hit').trigger('play')
-
-  #Events!
-
-  #Punch!
-  $('img#wolf').on('mousedown', -> punch())
-  $(window).keydown( (e) ->
-    if e.which == 32
-      e.preventDefault()
-      punch())
-
-  #See High Scores!
-  $('span#see-scores').click( ->
-    getHighScores((data) -> dispScores(data)))
-
-  #Score UI stuff!
-  $('span#see-scores').mouseover( ->
-    $(this).css('cursor', 'pointer'))
-  $('input#name').focus( ->
-    $(this).val(''))
-
-  #Send high score!!!
-  $('button#submit').click( ->
-    name = $('input#name').val()
-    sendScore(name, (data) ->
-      $('input#name').hide()
-      $('button#submit').hide()
-      $('audio#getalife').trigger('play')
-      dispScores(data)))
-
-  #Display scores!!!
-  dispScores = (scores) ->
-    list = ''
-    if scores == 'banned'
-      alert('U an outlaw. Stay outta town')
-    else
-      for element in scores
+    #Display scores!!!
+    dispScores = (scores) ->
+      list = ''
+      for element, index in scores
         entry = element.split(':')
         list += entry[0] + '..........' + entry[1] + '\n'
       alert(list)
 
 
-  #(un)Mute!
-  $('img#muter').click( ->
-    music = $('audio#music')
-    if music[0].paused
-      $(this).attr('src', 'imgs/mute-off.png')
-      music.trigger('play')
-    else
-      $(this).attr('src', 'imgs/mute-on.png')
-      music.trigger('pause'))
+    #(un)Mute!
+    $('img#muter').click( ->
+      music = $('audio#music')
+      if music[0].paused
+        $(this).attr('src', 'imgs/mute-off.png')
+        music.trigger('play')
+      else
+        $(this).attr('src', 'imgs/mute-on.png')
+        music.trigger('pause'))

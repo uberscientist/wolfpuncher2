@@ -26,6 +26,7 @@ div#container {
   top: 0px;
   left: 0px;
   overflow: hidden;
+  display: none;
 }
 
 div#controls {
@@ -53,6 +54,7 @@ button#submit {
   bottom: 80px;
   right: 25px;
   position: absolute;
+  z-index: 2;
 }
 
 input#name {
@@ -62,6 +64,7 @@ input#name {
   bottom: 80px;
   right: 135px;
   position: absolute;
+  z-index: 2;
 }
 
 .end {
@@ -105,26 +108,52 @@ img#title {
   z-index: 6;
 }
 
-span.end-text {
+img#sweetiebot {
+  right: -500px;
+  bottom: -200px;
+  z-index: 0;
+  position: absolute;
+}
+
+.end-text {
   color: #FFF;
-  border: solid white 1px;
+  text-shadow: -.1em 0 .06em #000, 0 .1em .06em #000, .1em 0 .06em #000, 0 -.1em .06em #000;
+}
+
+div#loading {
+  background-color: red;
+  text-align: center;
+  color: #FFF;
+  height: 30px;
+  padding: 10px;
+  margin: 40px auto;
 }
 
 span#game-over {
   font-size: 3em;
-  width: 400px;
+  text-align: center;
   margin: 20px auto;
+  display: block;
+  top: 800px;
+  position: relative;
 }
 
 span#too-bad {
   font-size: 3.2em;
-  width: 400px;
+  width: 700px;
+  top: 360px;
+  left: 30px;
   position: absolute;
+  display: none;
 }
 
-span#play-again {
-  font-size: 2.7em;
-  width: 500px;
+div#play-again {
+  font-size: 2em;
+  width: 380px;
+  padding: 0px;
+  text-align: right;
+  top: 230px;
+  left: -20px;
   position: absolute;
 }
 
