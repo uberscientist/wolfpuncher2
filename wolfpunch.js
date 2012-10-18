@@ -63,6 +63,7 @@
               }
               if (!reverse) {
                 sendMsg('PUNCH THE WOLF!!');
+                $('audio#ultimate').trigger('play');
                 reverse = true;
               }
             }
@@ -72,7 +73,7 @@
                 sendMsg("GET READY...");
               }
               if (reverse) {
-                score += 2;
+                score += .2;
                 sendMsg('');
               }
             }
@@ -172,8 +173,7 @@
         return sb.animate({
           bottom: '-110px'
         }, 2000).animate({
-          right: '200px'
-        }, 2000).animate({
+          right: '-200px',
           width: 3 * w,
           height: 3 * h
         }, 400).animate({
@@ -237,36 +237,32 @@
             $('audio#whine2').trigger('play');
           }
           $('div#container').css('background-image', 'none');
-          $('img#wolf').css({
-            width: '360px',
-            height: '420px'
-          });
-          fist.css({
+          $('img#wolf').stop();
+          $('img#fist').stop();
+          $('img#wolf').animate({
+            bottom: '-20px',
+            left: '-80px'
+          }, 35).animate({
+            bottom: '0px',
+            left: '0px'
+          }, 55);
+          fist.animate({
             width: '300px',
-            height: '340px'
-          });
-          fist.css({
+            height: '340px',
             top: '80px',
             right: '200px'
+          }, 30, function() {
+            punching = false;
+            return fist.animate({
+              top: '30px',
+              right: '30px',
+              width: '360px',
+              height: '273px'
+            }, 50);
           });
           setTimeout(function() {
             return $('div#container').css('background-image', "url('imgs/forest.jpg')");
           }, 50);
-          setTimeout(function() {
-            $('img#wolf').css({
-              width: '',
-              height: ''
-            });
-            fist.css({
-              width: '',
-              height: ''
-            });
-            fist.css({
-              top: '30px',
-              right: '30px'
-            });
-            return punching = false;
-          }, 150);
           health -= 5;
           return $('audio#hit').trigger('play');
         }
@@ -303,7 +299,11 @@
       });
       dispScores = function(scores) {
         var element, entry, list, _i, _len;
-        $('.end-text').hide();
+        if (wSplosion) {
+          $('.end-text').animate({
+            top: '-600px'
+          });
+        }
         list = '';
         for (_i = 0, _len = scores.length; _i < _len; _i++) {
           element = scores[_i];
@@ -311,10 +311,15 @@
           list += entry[1] + ' <span class="score-right">' + entry[0] + '</span><br/>';
         }
         return $('div#high-scores').html(list + '<div id="hide-scores" class="clickable">OKAY</div>').animate({
-          top: '20px'
+          top: '100px'
         });
       };
       $('div#hide-scores').live('click', function() {
+        if (wSplosion) {
+          $('.end-text').animate({
+            top: '600px'
+          }).remove();
+        }
         return $('div#high-scores').animate({
           top: '700px'
         });

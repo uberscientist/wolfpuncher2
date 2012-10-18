@@ -48,12 +48,13 @@ $.ready = ->
             if reverse then score += .1
             if !reverse
               sendMsg('PUNCH THE WOLF!!')
+              $('audio#ultimate').trigger('play')
               reverse = true
           if health < 80 && health > 40
             healthBar.css('background-color', '#CC0')
             if !reverse then sendMsg("GET READY...")
             if reverse
-              score += 2
+              score += .2
               sendMsg('')
           if health < 40 && health > 10
             healthBar.css('background-color', '#D50')
@@ -130,7 +131,7 @@ $.ready = ->
       sb = $('img#sweetiebot')
       w = sb.width()
       h = sb.height()
-      sb.animate({ bottom: '-110px' }, 2000).animate({ right: '200px' }, 2000).animate({width: 3*w, height: 3*h}, 400).animate({width: 2*w, height: 2*h}, 400).animate({width: 5*w, height: 5*h}, 400).animate({width: w, height: h}, 600).animate({right: '-40px', bottom: '0px'}, 600)
+      sb.animate({ bottom: '-110px' }, 2000).animate({right: '-200px', width: 3*w, height: 3*h}, 400).animate({width: 2*w, height: 2*h}, 400).animate({width: 5*w, height: 5*h}, 400).animate({width: w, height: h}, 600).animate({right: '-40px', bottom: '0px'}, 600)
 
     healthInterval = setInterval ->
       updateHealth(1)
@@ -166,20 +167,17 @@ $.ready = ->
 
         #Red background!
         $('div#container').css('background-image', 'none')
-        $('img#wolf').css({width: '360px', height: '420px'})
-        fist.css({width: '300px', height: '340px'})
-        fist.css({ top: '80px', right: '200px'})
+        $('img#wolf').stop()
+        $('img#fist').stop()
+        $('img#wolf').animate({bottom: '-20px', left: '-80px'}, 35).animate({bottom: '0px', left: '0px'}, 55)
+        fist.animate({width: '300px', height: '340px', top: '80px', right: '200px'}, 30, ->
+          punching = false
+          fist.animate({ top: '30px', right: '30px', width: '360px', height: '273px'}, 50)
+        )
 
         setTimeout ->
           $('div#container').css('background-image', "url('imgs/forest.jpg')")
         , 50
-
-        setTimeout ->
-          $('img#wolf').css({width: '', height: ''})
-          fist.css({width: '', height: ''})
-          fist.css({ top: '30px', right: '30px'})
-          punching = false
-        , 150
 
         health -= 5
         $('audio#hit').trigger('play')
@@ -214,15 +212,16 @@ $.ready = ->
 
     #Display scores!!!
     dispScores = (scores) ->
-      $('.end-text').hide()
+      if wSplosion then $('.end-text').animate({ top: '-600px'})
       list = ''
       for element in scores
         entry = element.split(':')
         list += entry[1] + ' <span class="score-right">' + entry[0]  + '</span><br/>'
-      $('div#high-scores').html(list + '<div id="hide-scores" class="clickable">OKAY</div>').animate({top: '20px'})
+      $('div#high-scores').html(list + '<div id="hide-scores" class="clickable">OKAY</div>').animate({top: '100px'})
 
     #Hide scores!
     $('div#hide-scores').live('click', ->
+      if wSplosion then $('.end-text').animate({ top: '600px'}).remove()
       $('div#high-scores').animate({top: '700px'}))
 
     #(un)Mute!

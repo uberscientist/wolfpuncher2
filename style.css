@@ -2,7 +2,7 @@ html {
   background-color: #111;
   font-family: 'Press Start 2P', sans-serif;
   color: #FFF;
-  text-shadow: -.1em 0 .06em #000, 0 .1em .06em #000, .1em 0 .06em #000, 0 -.1em .06em #000;
+  text-shadow: -.2em 0 .1em #000, 0 .2em .1em #000, .2em 0 .2em #000, 0 -.2em .1em #000;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -72,6 +72,10 @@ input#name {
   display: none;
 }
 
+.end-text {
+  position: absolute;
+}
+
 div#preload {
   display: none;
 }
@@ -133,7 +137,6 @@ span#game-over {
   display: block;
   top: 700px;
   left: 240px;
-  position: absolute;
 }
 
 span#too-bad {
@@ -141,7 +144,6 @@ span#too-bad {
   width: 700px;
   top: 360px;
   left: 30px;
-  position: absolute;
   display: none;
 }
 
@@ -152,7 +154,6 @@ div#play-again {
   text-align: right;
   top: 230px;
   left: -20px;
-  position: absolute;
 }
 
 div#high-scores {
@@ -183,6 +184,7 @@ span.score-right {
   float: right;
   display: block;
 }
+
 span#score {
   font-size: 1.3em;
   bottom: 50px;
