@@ -19,13 +19,6 @@
     return next();
   });
 
-  app.post('/punch', function(req, res) {
-    var ip, score;
-    ip = req.socket.remoteAddress;
-    score = parseInt(req.body.score);
-    return db.setex('wp:' + ip, 300, score);
-  });
-
   app.post('/score', function(req, res) {
     var ip, name, score;
     score = parseInt(req.body.score);
@@ -39,7 +32,7 @@
       if (banned) {
         return res.send('banned');
       } else {
-        if (name.length > 3 || name === 'GAB' || score === NaN || score === Infinity) {
+        if (name.length > 3 || score === NaN || score === Infinity) {
           res.send('banned');
           return db.sadd('wpbanned', ip, function(err) {
             if (err) {

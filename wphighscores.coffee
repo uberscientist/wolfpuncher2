@@ -10,12 +10,6 @@ app.use( (req, res, next) ->
   res.header('Access-Control-Allow-Origin', 'null')
   next())
 
-
-app.post('/punch', (req, res) ->
-  ip = req.socket.remoteAddress
-  score = parseInt(req.body.score)
-  db.setex('wp:' + ip, 300, score))
-
 app.post('/score', (req, res) ->
   score = parseInt(req.body.score)
   name = req.body.name.toUpperCase()
@@ -26,7 +20,7 @@ app.post('/score', (req, res) ->
     if banned
       res.send('banned')
     else
-      if name.length > 3 or name == 'GAB' or score == NaN or score == Infinity
+      if name.length > 3 or score == NaN or score == Infinity
         res.send('banned')
         db.sadd('wpbanned', ip, (err) -> throw err if err)
       else
