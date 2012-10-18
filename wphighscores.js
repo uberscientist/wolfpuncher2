@@ -15,6 +15,7 @@
   app.use(function(req, res, next) {
     res.type('json');
     res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com');
+    res.header('Access-Control-Allow-Origin', 'null');
     return next();
   });
 

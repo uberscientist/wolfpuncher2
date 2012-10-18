@@ -24,7 +24,7 @@ $.ready = ->
       $('span#message').html(msg)
 
     sendScore = (name, cb) ->
-      req = jQuery.ajax('http://wolfpuncher.com:6578/score',
+      req = jQuery.ajax('http://mindsforge.com:6578/score',
         type: 'POST'
         dataType: 'json'
         data: { name: name, score: Math.round(score) }
@@ -32,7 +32,7 @@ $.ready = ->
           cb(data))
 
     getHighScores = (cb) ->
-      req = jQuery.ajax('http://wolfpuncher.com:6578/scores',
+      req = jQuery.ajax('http://mindsforge.com:6578/scores',
         type: 'GET'
         dataType: 'json'
         success: (data) ->
@@ -89,8 +89,7 @@ $.ready = ->
           splodeid++
         , 500
 
-        $('img#wolf').animate({bottom: '-600px'}, 6000, ->
-          $('audio#toobad').trigger('play')
+        $('img#wolf').animate({bottom: '-500px'}, 6000, ->
           $('img#fist').remove()
           $('img#title').remove()
           $('img#wolf').remove()
@@ -106,27 +105,32 @@ $.ready = ->
             backgroundImage: 'url(\'imgs/wolfgrave.jpg\')')
 
           $('span#game-over').animate({top: '0px'}, 1000)
-          $('img#sweetiebot').animate({right: '0px', bottom: '0px'}, 600)
+          $('img#sweetiebot').animate({right: '-40px', bottom: '0px'}, 600, ->
+            $('audio#toobad').trigger('play')
+            i = 0
+            paText = ''
+            playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ')
 
-          i = 0
-          paText = ''
-          playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ')
+            paInterval = setInterval ->
+              if i == playAgain.length - 1 then clearInterval(paInterval)
+              paText += playAgain[i] + ' '
+              $('div#play-again').html(paText)
+              i++
+            , 185
+            
 
-          paInterval = setInterval ->
-            if i == playAgain.length - 1 then clearInterval(paInterval)
-            paText += playAgain[i] + ' '
-            $('div#play-again').html(paText)
-            i++
-          , 190
-          
-
-          setTimeout ->
-            if paInterval then clearInterval(paInterval)
-            $('span#too-bad').show()
-          ,1800
+            setTimeout ->
+              $('span#too-bad').show()
+              startSweetieAni(0)
+            ,1800
+          )
         )
-
-
+    
+    startSweetieAni = (animation) ->
+      sb = $('img#sweetiebot')
+      w = sb.width()
+      h = sb.height()
+      sb.animate({ bottom: '-110px' }, 2000).animate({ right: '200px' }, 2000).animate({width: 3*w, height: 3*h}, 400).animate({width: 2*w, height: 2*h}, 400).animate({width: 5*w, height: 5*h}, 400).animate({width: w, height: h}, 600).animate({right: '-40px', bottom: '0px'}, 600)
 
     healthInterval = setInterval ->
       updateHealth(1)
@@ -194,7 +198,7 @@ $.ready = ->
       getHighScores((data) -> dispScores(data)))
 
     #Score UI stuff!
-    $('span#see-scores').mouseover( ->
+    $('.clickable').live('mouseover', ->
       $(this).css('cursor', 'pointer'))
     $('input#name').focus( ->
       $(this).val(''))
@@ -203,19 +207,23 @@ $.ready = ->
     $('button#submit').click( ->
       name = $('input#name').val()
       sendScore(name, (data) ->
-        $('input#name').hide()
-        $('button#submit').hide()
+        $('input#name').remove()
+        $('button#submit').remove()
         $('audio#getalife').trigger('play')
         dispScores(data)))
 
     #Display scores!!!
     dispScores = (scores) ->
+      $('.end-text').hide()
       list = ''
-      for element, index in scores
+      for element in scores
         entry = element.split(':')
-        list += entry[0] + '..........' + entry[1] + '\n'
-      alert(list)
+        list += entry[1] + ' <span class="score-right">' + entry[0]  + '</span><br/>'
+      $('div#high-scores').html(list + '<div id="hide-scores" class="clickable">OKAY</div>').animate({top: '20px'})
 
+    #Hide scores!
+    $('div#hide-scores').live('click', ->
+      $('div#high-scores').animate({top: '700px'}))
 
     #(un)Mute!
     $('img#muter').click( ->

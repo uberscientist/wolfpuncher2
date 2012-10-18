@@ -15,7 +15,7 @@
       return $('div#loading').css('width', 580 * (loaded / count));
     });
     return startGame = function() {
-      var animateFist, dispScores, fist, fistStep, getHighScores, health, healthBar, healthInterval, punch, punching, reverse, score, sendMsg, sendScore, slowInterval, splodeid, updateHealth, wSplosion, wolfsplosion;
+      var animateFist, dispScores, fist, fistStep, getHighScores, health, healthBar, healthInterval, punch, punching, reverse, score, sendMsg, sendScore, slowInterval, splodeid, startSweetieAni, updateHealth, wSplosion, wolfsplosion;
       health = 0;
       score = 0;
       splodeid = 0;
@@ -29,7 +29,7 @@
       };
       sendScore = function(name, cb) {
         var req;
-        return req = jQuery.ajax('http://wolfpuncher.com:6578/score', {
+        return req = jQuery.ajax('http://mindsforge.com:6578/score', {
           type: 'POST',
           dataType: 'json',
           data: {
@@ -43,7 +43,7 @@
       };
       getHighScores = function(cb) {
         var req;
-        return req = jQuery.ajax('http://wolfpuncher.com:6578/scores', {
+        return req = jQuery.ajax('http://mindsforge.com:6578/scores', {
           type: 'GET',
           dataType: 'json',
           success: function(data) {
@@ -121,10 +121,8 @@
             return splodeid++;
           }, 500);
           return $('img#wolf').animate({
-            bottom: '-600px'
+            bottom: '-500px'
           }, 6000, function() {
-            var i, paInterval, paText, playAgain;
-            $('audio#toobad').trigger('play');
             $('img#fist').remove();
             $('img#title').remove();
             $('img#wolf').remove();
@@ -141,29 +139,56 @@
             $('span#game-over').animate({
               top: '0px'
             }, 1000);
-            $('img#sweetiebot').animate({
-              right: '0px',
+            return $('img#sweetiebot').animate({
+              right: '-40px',
               bottom: '0px'
-            }, 600);
-            i = 0;
-            paText = '';
-            playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ');
-            paInterval = setInterval(function() {
-              if (i === playAgain.length - 1) {
-                clearInterval(paInterval);
-              }
-              paText += playAgain[i] + ' ';
-              $('div#play-again').html(paText);
-              return i++;
-            }, 190);
-            return setTimeout(function() {
-              if (paInterval) {
-                clearInterval(paInterval);
-              }
-              return $('span#too-bad').show();
-            }, 1800);
+            }, 600, function() {
+              var i, paInterval, paText, playAgain;
+              $('audio#toobad').trigger('play');
+              i = 0;
+              paText = '';
+              playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ');
+              paInterval = setInterval(function() {
+                if (i === playAgain.length - 1) {
+                  clearInterval(paInterval);
+                }
+                paText += playAgain[i] + ' ';
+                $('div#play-again').html(paText);
+                return i++;
+              }, 185);
+              return setTimeout(function() {
+                $('span#too-bad').show();
+                return startSweetieAni(0);
+              }, 1800);
+            });
           });
         }
+      };
+      startSweetieAni = function(animation) {
+        var h, sb, w;
+        sb = $('img#sweetiebot');
+        w = sb.width();
+        h = sb.height();
+        return sb.animate({
+          bottom: '-110px'
+        }, 2000).animate({
+          right: '200px'
+        }, 2000).animate({
+          width: 3 * w,
+          height: 3 * h
+        }, 400).animate({
+          width: 2 * w,
+          height: 2 * h
+        }, 400).animate({
+          width: 5 * w,
+          height: 5 * h
+        }, 400).animate({
+          width: w,
+          height: h
+        }, 600).animate({
+          right: '-40px',
+          bottom: '0px'
+        }, 600);
       };
       healthInterval = setInterval(function() {
         return updateHealth(1);
@@ -260,7 +285,7 @@
           return dispScores(data);
         });
       });
-      $('span#see-scores').mouseover(function() {
+      $('.clickable').live('mouseover', function() {
         return $(this).css('cursor', 'pointer');
       });
       $('input#name').focus(function() {
@@ -270,22 +295,30 @@
         var name;
         name = $('input#name').val();
         return sendScore(name, function(data) {
-          $('input#name').hide();
-          $('button#submit').hide();
+          $('input#name').remove();
+          $('button#submit').remove();
           $('audio#getalife').trigger('play');
           return dispScores(data);
         });
       });
       dispScores = function(scores) {
-        var element, entry, index, list, _i, _len;
+        var element, entry, list, _i, _len;
+        $('.end-text').hide();
         list = '';
-        for (index = _i = 0, _len = scores.length; _i < _len; index = ++_i) {
-          element = scores[index];
+        for (_i = 0, _len = scores.length; _i < _len; _i++) {
+          element = scores[_i];
           entry = element.split(':');
-          list += entry[0] + '..........' + entry[1] + '\n';
+          list += entry[1] + ' <span class="score-right">' + entry[0] + '</span><br/>';
         }
-        return alert(list);
+        return $('div#high-scores').html(list + '<div id="hide-scores" class="clickable">OKAY</div>').animate({
+          top: '20px'
+        });
       };
+      $('div#hide-scores').live('click', function() {
+        return $('div#high-scores').animate({
+          top: '700px'
+        });
+      });
       return $('img#muter').click(function() {
         var music;
         music = $('audio#music');

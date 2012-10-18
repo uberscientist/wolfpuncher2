@@ -1,6 +1,8 @@
 html {
   background-color: #111;
   font-family: 'Press Start 2P', sans-serif;
+  color: #FFF;
+  text-shadow: -.1em 0 .06em #000, 0 .1em .06em #000, .1em 0 .06em #000, 0 -.1em .06em #000;
   -webkit-touch-callout: none;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -42,7 +44,6 @@ div#ad-bottom {
 }
 
 span#see-scores {
-  color: #FFF;
   bottom: 20px;
   right: 20px;
   font-size: 1em;
@@ -110,20 +111,16 @@ img#title {
 
 img#sweetiebot {
   right: -500px;
-  bottom: -200px;
+  bottom: -500px;
+  width: 420px;
+  height: 478px;
   z-index: 0;
   position: absolute;
-}
-
-.end-text {
-  color: #FFF;
-  text-shadow: -.1em 0 .06em #000, 0 .1em .06em #000, .1em 0 .06em #000, 0 -.1em .06em #000;
 }
 
 div#loading {
   background-color: red;
   text-align: center;
-  color: #FFF;
   height: 30px;
   padding: 10px;
   margin: 40px auto;
@@ -134,8 +131,9 @@ span#game-over {
   text-align: center;
   margin: 20px auto;
   display: block;
-  top: 800px;
-  position: relative;
+  top: 700px;
+  left: 240px;
+  position: absolute;
 }
 
 span#too-bad {
@@ -157,6 +155,22 @@ div#play-again {
   position: absolute;
 }
 
+div#high-scores {
+  font-size: 2.3em;
+  width: 350px;
+  height: 550px;
+  top: 700px;
+  left: 20px;
+  padding: 20px;
+  z-index: 10;
+  position: absolute;
+}
+
+div#hide-scores {
+  margin: 10px auto;
+  width: 103px;
+}
+
 span#message {
   font-size: 1.7em;
   width: 300px;
@@ -165,6 +179,10 @@ span#message {
   position: absolute;
 }
 
+span.score-right {
+  float: right;
+  display: block;
+}
 span#score {
   font-size: 1.3em;
   bottom: 50px;

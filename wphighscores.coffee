@@ -7,6 +7,7 @@ app.use(express.bodyParser())
 app.use( (req, res, next) ->
   res.type('json')
   res.header('Access-Control-Allow-Origin', 'http://wolfpuncher.com')
+  res.header('Access-Control-Allow-Origin', 'null')
   next())
 
 
