@@ -122,8 +122,10 @@
             return splodeid++;
           }, 500);
           return $('img#wolf').animate({
-            bottom: '-500px'
-          }, 6000, function() {
+            rotate: '-55deg',
+            bottom: '-520px',
+            left: '-350px'
+          }, 7000, function() {
             $('img#fist').remove();
             $('img#title').remove();
             $('img#wolf').remove();
@@ -166,29 +168,63 @@
         }
       };
       startSweetieAni = function(animation) {
-        var h, sb, w;
+        var h, i, sb, w;
         sb = $('img#sweetiebot');
         w = sb.width();
         h = sb.height();
+        i = 0;
         return sb.animate({
           bottom: '-110px'
         }, 2000).animate({
-          right: '-200px',
+          right: '-300px',
           width: 3 * w,
           height: 3 * h
         }, 400).animate({
           width: 2 * w,
           height: 2 * h
         }, 400).animate({
-          width: 5 * w,
-          height: 5 * h
+          right: '-400px',
+          width: 3 * w,
+          height: 3 * h
         }, 400).animate({
+          right: '-40px',
+          bottom: '0px',
           width: w,
           height: h
-        }, 600).animate({
-          right: '-40px',
-          bottom: '0px'
-        }, 600);
+        }, 600).delay(1000).animate({
+          right: '200px'
+        }, function() {
+          var sbFlippy;
+          return sbFlippy = setInterval(function() {
+            i++;
+            if (i % 2 === 0) {
+              return sb.transform({
+                reflectY: true
+              });
+            } else {
+              sb.transform({
+                reflectY: false
+              });
+              if (i > 10) {
+                clearInterval(sbFlippy);
+                return sb.animate({
+                  right: '900px'
+                }, 600, function() {
+                  sb.css({
+                    bottom: '-400px',
+                    right: '-400px'
+                  });
+                  return sb.animate({
+                    bottom: '-140px',
+                    right: '-40px'
+                  }).delay(800).animate({
+                    bottom: '0px'
+                  });
+                });
+              }
+            }
+          }, 100);
+        });
       };
       healthInterval = setInterval(function() {
         return updateHealth(1);
