@@ -62,15 +62,14 @@
                 score += .1;
               }
               if (!reverse) {
-                sendMsg('PUNCH THE WOLF!!');
-                $('audio#ultimate').trigger('play');
+                sendMsg('Pet the wolf!');
                 reverse = true;
               }
             }
             if (health < 80 && health > 40) {
               healthBar.css('background-color', '#CC0');
               if (!reverse) {
-                sendMsg("GET READY...");
+                sendMsg("Get Ready...");
               }
               if (reverse) {
                 score += .2;
@@ -80,7 +79,7 @@
             if (health < 40 && health > 10) {
               healthBar.css('background-color', '#D50');
               if (!reverse) {
-                sendMsg("WAIT...");
+                sendMsg("Wait...");
               }
               if (reverse) {
                 score += .5;
@@ -97,15 +96,14 @@
             wolfsplosion();
           }
         }
-        return $('span#score').html("SCORE: " + (Math.round(score)));
+        return $('span#score').html("Score: " + (Math.round(score)));
       };
       wolfsplosion = function() {
         var flashBar, splosionsInterval;
         if (!wSplosion) {
           wSplosion = true;
-          sendMsg("WOLF SPLOSION!!");
+          sendMsg("Wolfgasm!");
           $('img#wolf').attr('src', 'imgs/red_wolf.png');
-          $('audio#wolfsplosion').trigger('play');
           flashBar = setInterval(function() {
             if (healthBar.css('background-color') !== 'rgb(255, 0, 0)') {
               return healthBar.css('background-color', '#F00');
@@ -147,10 +145,9 @@
               bottom: '0px'
             }, 600, function() {
               var i, paInterval, paText, playAgain;
-              $('audio#toobad').trigger('play');
               i = 0;
               paText = '';
-              playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ');
+              playAgain = 'Would you like to play again?'.split(' ');
               paInterval = setInterval(function() {
                 if (i === playAgain.length - 1) {
                   clearInterval(paInterval);
@@ -160,7 +157,7 @@
                 return i++;
               }, 185);
               return setTimeout(function() {
-                $('span#too-bad').show();
+                $('span#replay-ok').show();
                 return startSweetieAni(0);
               }, 1800);
             });
@@ -239,25 +236,25 @@
           if (fistStep === 0) {
             fist.css({
               top: '20px',
-              right: '40px'
+              left: '40px'
             });
           }
           if (fistStep === 1) {
             fist.css({
               top: '30px',
-              right: '30px'
+              left: '30px'
             });
           }
           if (fistStep === 2) {
             fist.css({
               top: '20px',
-              right: '20px'
+              left: '20px'
             });
           }
           if (fistStep === 3) {
             fist.css({
               top: '30px',
-              right: '30px'
+              left: '30px'
             });
             return fistStep = -1;
           }
@@ -272,34 +269,29 @@
           if (Math.random() * 20 > 18) {
             $('audio#whine2').trigger('play');
           }
-          $('div#container').css('background-image', 'none');
           $('img#wolf').stop();
           $('img#fist').stop();
           $('img#wolf').animate({
             bottom: '-20px',
-            left: '-80px'
-          }, 35).animate({
+            left: '30px'
+          }, 100).animate({
             bottom: '0px',
             left: '0px'
-          }, 55);
+          }, 100);
           fist.animate({
-            width: '300px',
-            height: '340px',
             top: '80px',
-            right: '200px'
-          }, 30, function() {
+            left: '200px'
+          }, 100, function() {
             punching = false;
             return fist.animate({
               top: '30px',
-              right: '30px',
-              width: '360px',
-              height: '273px'
-            }, 50);
+              right: '30px'
+            }, 100);
           });
           setTimeout(function() {
             return $('div#container').css('background-image', "url('imgs/forest.jpg')");
           }, 50);
-          health -= 5;
+          health -= 10;
           return $('audio#hit').trigger('play');
         }
       };
@@ -329,9 +321,11 @@
         return sendScore(name, function(data) {
           $('input#name').remove();
           $('button#submit').remove();
-          $('audio#getalife').trigger('play');
           return dispScores(data);
         });
+      });
+      $('#replay-ok').click(function() {
+        return location.reload();
       });
       dispScores = function(scores) {
         var element, entry, list, _i, _len;

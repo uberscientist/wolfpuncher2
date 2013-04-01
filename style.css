@@ -1,5 +1,5 @@
 html {
-  background-color: #111;
+  background-color: #E077CF;
   font-family: 'Press Start 2P', sans-serif;
   color: #FFF;
   text-shadow: -.2em 0 .1em #000, 0 .2em .1em #000, .2em 0 .2em #000, 0 -.2em .1em #000;
@@ -9,6 +9,10 @@ html {
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+
+p {
+  line-height: 50px;
 }
 
 div#wrap {
@@ -83,13 +87,14 @@ div#preload {
 div#health {
   bottom: 20px;
   right: 20px;
-  height: 20px;
+  height: 5px;
+  opacity: 0.5;
   position: absolute;
 }
 
 img#wolf {
   bottom: 0px;
-  left: 0px;
+  left: -20px;
   position: absolute;
 }
 
@@ -101,7 +106,7 @@ img.splosion {
 
 img#fist {
   top: 30px;
-  right: 30px;
+  left: 30px;
   position: absolute;
   z-index: 5;
 }
@@ -139,7 +144,7 @@ span#game-over {
   left: 240px;
 }
 
-span#too-bad {
+span#replay-ok {
   font-size: 3.2em;
   width: 700px;
   top: 360px;

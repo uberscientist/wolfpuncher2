@@ -47,18 +47,17 @@ $.ready = ->
             healthBar.css('background-color', '#0C0')
             if reverse then score += .1
             if !reverse
-              sendMsg('PUNCH THE WOLF!!')
-              $('audio#ultimate').trigger('play')
+              sendMsg('Pet the wolf!')
               reverse = true
           if health < 80 && health > 40
             healthBar.css('background-color', '#CC0')
-            if !reverse then sendMsg("GET READY...")
+            if !reverse then sendMsg("Get Ready...")
             if reverse
               score += .2
               sendMsg('')
           if health < 40 && health > 10
             healthBar.css('background-color', '#D50')
-            if !reverse then sendMsg("WAIT...")
+            if !reverse then sendMsg("Wait...")
             if reverse then score += .5
           if health < 10
             healthBar.css('background-color','#C00')
@@ -68,14 +67,13 @@ $.ready = ->
         else if(health + diff < 0)
           wolfsplosion()
 
-      $('span#score').html("SCORE: #{Math.round(score)}")
+      $('span#score').html("Score: #{Math.round(score)}")
 
     wolfsplosion = () ->
       if !wSplosion
         wSplosion = true
-        sendMsg("WOLF SPLOSION!!")
+        sendMsg("Wolfgasm!")
         $('img#wolf').attr('src', 'imgs/red_wolf.png')
-        $('audio#wolfsplosion').trigger('play')
 
         flashBar = setInterval ->
           if healthBar.css('background-color') != 'rgb(255, 0, 0)'
@@ -107,10 +105,9 @@ $.ready = ->
 
           $('span#game-over').animate({top: '0px'}, 1000)
           $('img#sweetiebot').animate({right: '-40px', bottom: '0px'}, 600, ->
-            $('audio#toobad').trigger('play')
             i = 0
             paText = ''
-            playAgain = 'WOULD YOU LIKE TO PLAY AGAIN?'.split(' ')
+            playAgain = 'Would you like to play again?'.split(' ')
 
             paInterval = setInterval ->
               if i == playAgain.length - 1 then clearInterval(paInterval)
@@ -121,7 +118,7 @@ $.ready = ->
             
 
             setTimeout ->
-              $('span#too-bad').show()
+              $('span#replay-ok').show()
               startSweetieAni(0)
             ,1800
           )
@@ -160,13 +157,13 @@ $.ready = ->
       if !punching
         fistStep++
         if fistStep == 0
-          fist.css({ top: '20px', right: '40px'})
+          fist.css({ top: '20px', left: '40px'})
         if fistStep == 1
-          fist.css({ top: '30px', right: '30px'})
+          fist.css({ top: '30px', left: '30px'})
         if fistStep == 2
-          fist.css({ top: '20px', right: '20px'})
+          fist.css({ top: '20px', left: '20px'})
         if fistStep == 3
-          fist.css({ top: '30px', right: '30px'})
+          fist.css({ top: '30px', left: '30px'})
           fistStep = -1
 
 
@@ -179,21 +176,19 @@ $.ready = ->
         if Math.random() * 20 > 18
           $('audio#whine2').trigger('play')
 
-        #Red background!
-        $('div#container').css('background-image', 'none')
         $('img#wolf').stop()
         $('img#fist').stop()
-        $('img#wolf').animate({bottom: '-20px', left: '-80px'}, 35).animate({bottom: '0px', left: '0px'}, 55)
-        fist.animate({width: '300px', height: '340px', top: '80px', right: '200px'}, 30, ->
+        $('img#wolf').animate({bottom: '-20px', left: '30px'}, 100).animate({bottom: '0px', left: '0px'}, 100)
+        fist.animate({top: '80px', left: '200px'}, 100, ->
           punching = false
-          fist.animate({ top: '30px', right: '30px', width: '360px', height: '273px'}, 50)
+          fist.animate({ top: '30px', right: '30px'}, 100)
         )
 
         setTimeout ->
           $('div#container').css('background-image', "url('imgs/forest.jpg')")
         , 50
 
-        health -= 5
+        health -= 10
         $('audio#hit').trigger('play')
 
     #Events!
@@ -221,8 +216,11 @@ $.ready = ->
       sendScore(name, (data) ->
         $('input#name').remove()
         $('button#submit').remove()
-        $('audio#getalife').trigger('play')
         dispScores(data)))
+
+    #Restart game on OK!
+    $('#replay-ok').click ->
+      location.reload()
 
     #Display scores!!!
     dispScores = (scores) ->

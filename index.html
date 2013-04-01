@@ -30,15 +30,15 @@
 <body>
   <noscript>This is a JavaScript game. Disable NoScript!</noscript>
   <div id='wrap'>
-    <div id='loading'>LOADING...</div>
+    <div id='loading'>Loading...</div>
     <div id='container'>
       <div id='high-scores'></div>
-      <span id='game-over' class='end-text'>GAME OVER</span>
+      <span id='game-over' class='end-text'>You Win!</span>
       <div id='play-again' class='end-text'></div>
-      <span id='too-bad' class='end-text'>TOO BAD.</span>
+      <span id='replay-ok' class='end-text clickable'>ok!</span>
 
       <input type='text' id='name' class='end' maxlength=3 value='???'></input>
-      <button type='button' id='submit' class='end'>SUBMIT</button>
+      <button type='button' id='submit' class='end'>Submit</button>
       <img id='title' src='imgs/title.png'/>
       <img id='wolf' src='imgs/wolf.png'/>
       <img id='fist' src='imgs/fist.png'/>
@@ -49,7 +49,7 @@
     </div>
     <div id='controls'>
       <img id='muter' class='clickable' src='imgs/mute-off.png'/>
-      <span id='see-scores' class='clickable'>HIGH SCORES</span>
+      <span id='see-scores' class='clickable'>High Scores</span>
     </div>
     <div id='ad-bottom'>
       <script type="text/javascript"><!--
@@ -64,6 +64,8 @@
       src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
       </script>
     </div>
+    <p>Greetings faithful wolf punchers, I am sorry to announce that <img src="imgs/peta_sm.gif"> has threatened
+      me and my family with a harsh pamphlet campaign, along with producing anti-wolfpuncher T-shirts reading: "I only punch vegan pizza dough, wolf punchers will burn in hell".  I have snapped under the pressure of their heinous threats and have worked closely with their game development team to re-imagine and re-work wolfpuncher into the game before you now.  I hope you will enjoy playing it as much as I did making it. <img src="imgs/peta_sm.gif"> isn't so bad once you get on their good side!</p>
   </div>
 
   <div id='preload'>
@@ -85,14 +87,6 @@
       <source src='audio/hit.ogg' type='audio/ogg'>
       <source src='audio/hit.mp3' type='audio/mp3'>
     </audio>
-    <audio id='ultimate' preload='preload'>
-      <source src='audio/wolfpunch_ultimate.ogg' type='audio/ogg'>
-      <source src='audio/wolfpunch_ultimate.mp3' type='audio/mp3'>
-    </audio>
-    <audio id='wolfsplosion' preload='preload'>
-      <source src='audio/wolfsplosion.ogg' type='audio/ogg'>
-      <source src='audio/wolfsplosion.mp3' type='audio/mp3'>
-    </audio>
     <audio id='whine1' preload='preload'>
       <source src='audio/whine1.ogg' type='audio/ogg'>
       <source src='audio/whine1.mp3' type='audio/mp3'>
@@ -100,14 +94,6 @@
     <audio id='whine2' preload='preload'>
       <source src='audio/whine2.ogg' type='audio/ogg'>
       <source src='audio/whine2.mp3' type='audio/mp3'>
-    </audio>
-    <audio id='toobad' preload='preload'>
-      <source src='audio/toobad.ogg' type='audio/ogg'>
-      <source src='audio/toobad.mp3' type='audio/mp3'>
-    </audio>
-    <audio id='getalife' preload='preload'>
-      <source src='audio/getalife.ogg' type='audio/ogg'>
-      <source src='audio/getalife.mp3' type='audio/mp3'>
     </audio>
   </div>
 </body>
