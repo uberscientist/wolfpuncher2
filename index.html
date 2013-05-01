@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset='utf-8'>
   <title>WOLF PUNCHER 2 (TM)</title>
   <link href='style.css' rel='stylesheet' type='text/css' />
   <link href='http://fonts.googleapis.com/css?family=Press+Start+2P' rel='stylesheet' type='text/css'>
@@ -24,7 +25,7 @@
       })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
-  <meta name='description' content='Wolf Puncher 2 browswer based game.'/>
+  <meta name='description' content='Wolf Puncher 2 browser based game.'/>
   <meta name='keywords' content='mlp, my, little, pony, wolf, puncher, wolfpuncher, wolfpuncher2, parody, html5, browser, game'/>
 </head>
 <body>
@@ -37,18 +38,18 @@
       <div id='play-again' class='end-text'></div>
       <span id='too-bad' class='end-text'>TOO BAD.</span>
 
-      <input type='text' id='name' class='end' maxlength=3 value='???'></input>
+      <input type='text' id='name' class='end' maxlength=3 value='???'>
       <button type='button' id='submit' class='end'>SUBMIT</button>
-      <img id='title' src='imgs/title.png'/>
-      <img id='wolf' src='imgs/wolf.png'/>
-      <img id='fist' src='imgs/fist.png'/>
-      <img id='sweetiebot' src='imgs/sweetiebot.png'/>
+      <img id='title' src='imgs/title.png' alt='title'>
+      <img id='wolf' src='imgs/wolf.png' alt='wolf'>
+      <img id='fist' src='imgs/fist.png' alt='fist'>
+      <img id='sweetiebot' src='imgs/sweetiebot.png' alt='sweetiebot'>
       <span id='message'></span>
       <span id='score'></span>
       <div id='health'></div>
     </div>
     <div id='controls'>
-      <img id='muter' class='clickable' src='imgs/mute-off.png'/>
+      <img id='muter' class='clickable' src='imgs/mute-off.png' alt='muter'>
       <span id='see-scores' class='clickable'>HIGH SCORES</span>
     </div>
     <div id='ad-bottom'>
@@ -67,45 +68,45 @@
   </div>
 
   <div id='preload'>
-    <img src='imgs/fist.png'/>
-    <img src='imgs/sweetiebot.png'/>
-    <img src='imgs/wolf.png'/>
-    <img src='imgs/forest.jpg'/>
-    <img src='imgs/title.png'/>
-    <img src='imgs/red_wolf.png'/>
-    <img src='imgs/wolfgrave.jpg'/>
-    <img src='imgs/mute-on.png'/>
-    <img src='imgs/mute-off.png'/>
-    <img src='imgs/splosion.gif'/>
-    <audio id='music' autoplay='autoplay'loop='loop' preload='preload'>
+    <img src='imgs/fist.png' alt='imgs'>
+    <img src='imgs/sweetiebot.png' alt='imgs'>
+    <img src='imgs/wolf.png' alt='imgs'>
+    <img src='imgs/forest.jpg' alt='imgs'>
+    <img src='imgs/title.png' alt='imgs'>
+    <img src='imgs/red_wolf.png' alt='imgs'>
+    <img src='imgs/wolfgrave.jpg' alt='imgs'>
+    <img src='imgs/mute-on.png' alt='imgs'>
+    <img src='imgs/mute-off.png' alt='imgs'>
+    <img src='imgs/splosion.gif' alt='imgs'>
+    <audio id='music' autoplay='autoplay' loop='loop' preload>
       <source src='audio/music.ogg' type='audio/ogg'>
       <source src='audio/music.mp3' type='audio/mp3'>
     </audio>
-    <audio id='hit' preload='preload'>
+    <audio id='hit' preload>
       <source src='audio/hit.ogg' type='audio/ogg'>
       <source src='audio/hit.mp3' type='audio/mp3'>
     </audio>
-    <audio id='ultimate' preload='preload'>
+    <audio id='ultimate' preload>
       <source src='audio/wolfpunch_ultimate.ogg' type='audio/ogg'>
       <source src='audio/wolfpunch_ultimate.mp3' type='audio/mp3'>
     </audio>
-    <audio id='wolfsplosion' preload='preload'>
+    <audio id='wolfsplosion' preload>
       <source src='audio/wolfsplosion.ogg' type='audio/ogg'>
       <source src='audio/wolfsplosion.mp3' type='audio/mp3'>
     </audio>
-    <audio id='whine1' preload='preload'>
+    <audio id='whine1' preload>
       <source src='audio/whine1.ogg' type='audio/ogg'>
       <source src='audio/whine1.mp3' type='audio/mp3'>
     </audio>
-    <audio id='whine2' preload='preload'>
+    <audio id='whine2' preload>
       <source src='audio/whine2.ogg' type='audio/ogg'>
       <source src='audio/whine2.mp3' type='audio/mp3'>
     </audio>
-    <audio id='toobad' preload='preload'>
+    <audio id='toobad' preload>
       <source src='audio/toobad.ogg' type='audio/ogg'>
       <source src='audio/toobad.mp3' type='audio/mp3'>
     </audio>
-    <audio id='getalife' preload='preload'>
+    <audio id='getalife' preload>
       <source src='audio/getalife.ogg' type='audio/ogg'>
       <source src='audio/getalife.mp3' type='audio/mp3'>
     </audio>
